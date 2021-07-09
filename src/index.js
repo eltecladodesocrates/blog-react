@@ -1,17 +1,82 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import uuid from 'uuid'
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+class BlogApp extends React.Component {
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+  state = {
+    posts: []
+  }
+
+  handleCreatePost = (post) => {
+    this.setState((prevState) => ({ posts: prevState.posts.concat(post) }))
+  }
+
+  render() {
+    return (
+      <div>
+        <Header />
+        <Posts
+          posts={this.state.posts}
+          handleCreatePost={this.handleCreatePost}
+        />
+      </div>
+    )
+  }
+}
+
+const Header = () => {
+  return (
+    <div>
+      <h1>Blog App</h1>
+    </div>
+  )
+}
+
+const Posts = (props) => (
+  <div>
+    {props.posts.map((post) => {
+      return <Post
+        key={post.id}
+        id={post.id}
+        title={post.title}
+        body={post.body}
+      />
+    })}
+    <CreatePost
+      handleCreatePost={props.handleCreatePost}
+    />
+  </div>
+)
+
+const Post = (props) => {
+  return (
+    <div>
+      <h2>{props.title}</h2>
+      <p>{props.body}</p>
+    </div>
+  )
+}
+
+const CreatePost = (props) => {
+  const handleCreatePost = (e) => {
+    e.preventDefault()
+    const post = {
+      id: uuid(),
+      title: e.target.title.value,
+      body: e.target.body.value
+    }
+    props.handleCreatePost(post)
+
+  }
+  return (
+    <form onSubmit={handleCreatePost}>
+      <input type="text" name="title" />
+      <textarea type="text" name="body" />
+      <button>Post</button>
+    </form>
+  )
+}
+
+ReactDOM.render(<BlogApp />, document.getElementById('root'));
+
