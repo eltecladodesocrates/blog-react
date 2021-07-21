@@ -1,50 +1,18 @@
 import React, { useState, useReducer } from 'react'
-
-const addPost = (img, mainTitle, title, body) => ({
-    type: 'ADD_POST',
-    img,
-    mainTitle,
-    title,
-    body
-})
-
-const sectionReducer = (state, action) => {
-    switch (action.type) {
-        case 'ADD_POST':
-            return [
-                ...state,
-                {
-                    id: Date.now(),
-                    img: action.img,
-                    title: action.mainTitle,
-                    sections: [{
-                        id: action.title,
-                        title: action.title,
-                        body: action.body
-                    }]
-                }
-            ]
-        default:
-            return state
-    }
-}
+import { addPost } from '../actions/postActions'
+import { sectionReducer } from '../reducers/postReducer'
 
 // It is working quite nice but in this component you just have to submit sections, do not run and submit 
 // everything because you will end up with a post with just one section
 // Think about it
 
 const CreateSection = () => {
-    const [img, setImg] = useState('')
-    const [mainTitle, setMailTitle] = useState('')
+
     const [title, setTitle] = useState('')
     const [body, setBody] = useState([])
-    const [state, dispatch] = useReducer(sectionReducer, [])
+    const [sections, setSections] = useState([])
 
-    const handleAddHeaderAndImg = e => {
-        e.preventDefault()
-        setImg(e.target.img.value)
-        setMailTitle(e.target.mainTitle.value)
-    }
+
 
     const handleAddTitle = e => {
         e.preventDefault()
@@ -56,35 +24,47 @@ const CreateSection = () => {
         e.preventDefault()
         setBody([
             ...body,
-            e.target.paragraph.value
+            {
+                id: Date.now(),
+                text: e.target.paragraph.value
+            }
         ])
         e.target.paragraph.value = ''
     }
 
-    const handleAddSection = (e) => {
-        e.preventDefault()
-        dispatch(addPost(img, mainTitle, title, body))
-        setTitle('')
-        setBody([])
-        setImg('')
-        setMailTitle('')
+    const handleRemoveParagraph = id => {
+        const updatedBody = body.filter(paragraph => paragraph.id !== id)
+        setBody(updatedBody)
+        console.log(updatedBody)
     }
 
-    console.log('state', state)
+    const handleAddSection = (e) => {
+        e.preventDefault()
+
+        setSections([
+            ...sections,
+            {
+                id: Date.now(),
+                title,
+                body
+            }
+        ])
+        setTitle('')
+        setBody([])
+    }
 
     return (
         <div>
-
-            {state.map(post => {
-                post.sections.map(section => console.log(section))
-            })}
-            {!mainTitle && !img &&
-                <form onSubmit={handleAddHeaderAndImg}>
-                    <input type="text" name='img' placeholder='Image' />
-                    <input type="text" name='mainTitle' placeholder='Main Title' />
-                    <button>Submit</button>
-                </form>
-            }
+            <div>
+                <h2>{title}</h2>
+                {title && <button onClick={() => setTitle('')}>x</button>}
+            </div>
+            {body.map((paragraph) => (
+                <div key={paragraph.id}>
+                    <p>{paragraph.text}</p>
+                    <button onClick={() => handleRemoveParagraph(paragraph.id)}>x</button>
+                </div>
+            ))}
             {!title &&
                 <form onSubmit={handleAddTitle}>
                     <input type="text" placeholder='Title' name='title' />
@@ -98,6 +78,54 @@ const CreateSection = () => {
             <form onSubmit={handleAddSection}>
                 <button>Submit Section</button>
             </form>
+            <CreatePost
+                sections={sections}
+            />
+
+        </div>
+    )
+}
+
+const CreatePost = ({ sections }) => {
+
+    const [img, setImg] = useState('')
+    const [mainTitle, setMailTitle] = useState('')
+    const [state, dispatch] = useReducer(sectionReducer, [])
+
+    const handleAddHeaderAndImg = e => {
+        e.preventDefault()
+        setImg(e.target.img.value)
+        setMailTitle(e.target.mainTitle.value)
+    }
+
+    const handleAddPost = () => {
+        dispatch(addPost(img, mainTitle, sections))
+        setImg('')
+        setMailTitle('')
+    }
+
+    return (
+        <div>
+            {!mainTitle && !img &&
+                <form onSubmit={handleAddHeaderAndImg}>
+                    <input type="text" name='img' placeholder='Image' />
+                    <input type="text" name='mainTitle' placeholder='Main Title' />
+                    <button>Submit</button>
+                </form>
+            }
+            <button onClick={handleAddPost}>Add Post</button>
+            <Post
+                post={state}
+            />
+        </div>
+
+    )
+}
+
+const Post = ({ post }) => {
+    return (
+        <div>
+            {console.log('Post', post)}
         </div>
     )
 }
