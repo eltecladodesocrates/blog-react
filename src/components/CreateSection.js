@@ -1,10 +1,12 @@
-import React, { useState, useReducer } from 'react'
-import { addPost } from '../actions/postActions'
-import { sectionReducer } from '../reducers/postReducer'
+import React, { useState } from 'react'
+import CreatePost from './CreatePost'
 
-// It is working quite nice but in this component you just have to submit sections, do not run and submit 
-// everything because you will end up with a post with just one section
-// Think about it
+// Set up the router before you add any extra component, if not after that is going to be tough
+// Add a new component called Header, in which you will define main title and img
+// Take advantage of the useContext hook, if not this is going to be a fucked up mess
+// Start creating the DB for the project (check about auth and google analitics)
+// Use firebase as the backend, you are not ready for building an API from scratch, we need this blog now
+// You are doing a great job 
 
 const CreateSection = () => {
 
@@ -82,50 +84,6 @@ const CreateSection = () => {
                 sections={sections}
             />
 
-        </div>
-    )
-}
-
-const CreatePost = ({ sections }) => {
-
-    const [img, setImg] = useState('')
-    const [mainTitle, setMailTitle] = useState('')
-    const [state, dispatch] = useReducer(sectionReducer, [])
-
-    const handleAddHeaderAndImg = e => {
-        e.preventDefault()
-        setImg(e.target.img.value)
-        setMailTitle(e.target.mainTitle.value)
-    }
-
-    const handleAddPost = () => {
-        dispatch(addPost(img, mainTitle, sections))
-        setImg('')
-        setMailTitle('')
-    }
-
-    return (
-        <div>
-            {!mainTitle && !img &&
-                <form onSubmit={handleAddHeaderAndImg}>
-                    <input type="text" name='img' placeholder='Image' />
-                    <input type="text" name='mainTitle' placeholder='Main Title' />
-                    <button>Submit</button>
-                </form>
-            }
-            <button onClick={handleAddPost}>Add Post</button>
-            <Post
-                post={state}
-            />
-        </div>
-
-    )
-}
-
-const Post = ({ post }) => {
-    return (
-        <div>
-            {console.log('Post', post)}
         </div>
     )
 }

@@ -1,37 +1,21 @@
-import React, { useState } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
+import AppRouter from './routers/AppRouter';
 
 import uuid from 'uuid'
 // import CreatePost from './components/CreatePost'
 import CreateSection from './components/CreateSection'
+import BlogApp from './components/BlogApp';
 
-// const post = {
-//   img: '',
-//   title: '',
-//   sections: [{
-//     subTitle: '',
-//     blocks: []
-//   }]
+
+// const App = () => {
+
+//   return (
+//     <AppRouter />
+//   )
 // }
-
-const BlogApp = () => {
-  return (
-    <CreateSection />
-  )
-}
 
 
 
 ReactDOM.render(<BlogApp />, document.getElementById('root'));
 
-
-// const post = {
-//   id: uuid(),
-//   title: '',
-//   sections: [{
-//     subTitle: '',
-//     paragraphs: [
-
-//     ]
-//   }]
-// }
