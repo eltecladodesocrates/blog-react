@@ -1,12 +1,8 @@
 import React, { useState, useContext, useEffect } from 'react'
-import { sectionReducer } from '../reducers/postReducer'
 import { addPost } from '../actions/postActions'
-import Post from './Post'
 import {PostsContext} from '../context/posts-context'
 import CreateSection from './CreateSection'
 import {SectionContext} from '../context/section-context'
-
-// Work on this, dispatch is not working keep up with the tutorial
 
 const CreatePost = () => {
 
@@ -14,7 +10,6 @@ const CreatePost = () => {
     const [img, setImg] = useState('')
     const [mainTitle, setMailTitle] = useState('')
     const {sections} = useContext(SectionContext)
-    // const [state, dispatch] = useReducer(sectionReducer, [])
 
     const handleAddHeaderAndImg = e => {
         e.preventDefault()
