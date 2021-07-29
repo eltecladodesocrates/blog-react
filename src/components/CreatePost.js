@@ -1,16 +1,19 @@
-import React, { useState, useContext, useReducer } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { sectionReducer } from '../reducers/postReducer'
 import { addPost } from '../actions/postActions'
 import Post from './Post'
-import PostsContext from '../context/posts-context'
+import {PostsContext} from '../context/posts-context'
+import CreateSection from './CreateSection'
+import {SectionContext} from '../context/section-context'
 
 // Work on this, dispatch is not working keep up with the tutorial
 
-const CreatePost = ({ sections }) => {
+const CreatePost = () => {
 
-    const {dispatch} = useContext(PostsContext)
+    const {state, dispatch} = useContext(PostsContext)
     const [img, setImg] = useState('')
     const [mainTitle, setMailTitle] = useState('')
+    const {sections} = useContext(SectionContext)
     // const [state, dispatch] = useReducer(sectionReducer, [])
 
     const handleAddHeaderAndImg = e => {
@@ -25,8 +28,18 @@ const CreatePost = ({ sections }) => {
         setMailTitle('')
     }
 
+    useEffect(() => {
+        localStorage.setItem('posts', JSON.stringify(state))
+        console.log('state from create post')
+    }, [state])
+
+
     return (
         <div>
+            <img className='postImage' src={img} alt={mainTitle}/>
+            {img && <button onClick={() => setImg('')}>x</button>}
+            <h2>{mainTitle}</h2>
+            {mainTitle && <button onClick={() => setMailTitle('')}>x</button>}
             {!mainTitle && !img &&
                 <form onSubmit={handleAddHeaderAndImg}>
                     <input type="text" name='img' placeholder='Image' />
@@ -34,6 +47,8 @@ const CreatePost = ({ sections }) => {
                     <button>Submit</button>
                 </form>
             }
+            <CreateSection />
+
             <button onClick={handleAddPost}>Add Post</button>
         </div>
 

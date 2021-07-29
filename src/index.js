@@ -1,11 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import AppRouter from './routers/AppRouter';
-
-import uuid from 'uuid'
-// import CreatePost from './components/CreatePost'
-import CreateSection from './components/CreateSection'
 import BlogApp from './components/BlogApp';
+import BlogContextApp from './context/posts-context'
 
 
 // const App = () => {
@@ -17,5 +13,9 @@ import BlogApp from './components/BlogApp';
 
 
 
-ReactDOM.render(<BlogApp />, document.getElementById('root'));
+ReactDOM.render(
+    <BlogContextApp>
+            <BlogApp />
+    </BlogContextApp>
+, document.getElementById('root'));
 

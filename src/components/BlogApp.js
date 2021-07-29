@@ -1,26 +1,14 @@
-import React, {useReducer} from 'react'
-import PostsContext from '../context/posts-context'
-import { sectionReducer } from '../reducers/postReducer'
+import React from 'react'
+import SectionContextApp from '../context/section-context'
 
 import AppRouter from '../routers/AppRouter'
-import Post from './Post'
-import CreatePost from './CreatePost'
-import Header from './Header'
-
 const BlogApp = () => {
 
-    const [state, dispatch] = useReducer(sectionReducer, [])
-
     return (
-        <div>
-            <PostsContext.Provider value={{state, dispatch}}>
-                <CreatePost />
-                <Post />
-            </PostsContext.Provider>
-        </div>
+        <SectionContextApp>
+            <AppRouter />
+        </SectionContextApp>
     )
 }
-
-
 
 export default BlogApp

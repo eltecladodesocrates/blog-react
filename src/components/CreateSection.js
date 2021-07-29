@@ -1,5 +1,8 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
+import {CopyBlock, dracula} from 'react-code-blocks'
 import CreatePost from './CreatePost'
+
+import {SectionContext} from '../context/section-context'
 
 // Set up the router before you add any extra component, if not after that is going to be tough
 // Add a new component called Header, in which you will define main title and img
@@ -12,8 +15,8 @@ const CreateSection = () => {
 
     const [title, setTitle] = useState('')
     const [body, setBody] = useState([])
-    const [sections, setSections] = useState([])
 
+    const {sections, setSections} = useContext(SectionContext)
 
 
     const handleAddTitle = e => {
@@ -28,16 +31,34 @@ const CreateSection = () => {
             ...body,
             {
                 id: Date.now(),
-                text: e.target.paragraph.value
+                text: e.target.paragraph.value,
+                code: e.target.code.value
             }
         ])
         e.target.paragraph.value = ''
+        e.target.code.value = ''
     }
 
+    // simplify this functionality
+    // it is basically repeating itself
     const handleRemoveParagraph = id => {
-        const updatedBody = body.filter(paragraph => paragraph.id !== id)
+        const updatedBody = body.filter(paragraph => {
+            if (paragraph.id === id) {
+                paragraph.text = ''
+            }
+            return paragraph
+        })
         setBody(updatedBody)
-        console.log(updatedBody)
+    }
+
+    const handleRemoveCode = id => {
+        const updatedBody = body.filter(paragraph => {
+            if (paragraph.id === id) {
+                paragraph.code = ''
+            }
+            return paragraph
+        })
+        setBody(updatedBody)
     }
 
     const handleAddSection = (e) => {
@@ -64,7 +85,19 @@ const CreateSection = () => {
             {body.map((paragraph) => (
                 <div key={paragraph.id}>
                     <p>{paragraph.text}</p>
-                    <button onClick={() => handleRemoveParagraph(paragraph.id)}>x</button>
+                    {paragraph.text && <button onClick={() => handleRemoveParagraph(paragraph.id)}>x</button>}
+                    {
+                        paragraph.code && 
+                        <>
+                            <CopyBlock 
+                                text={paragraph.code}
+                                language={'javascript'}
+                                theme={dracula}
+                            />
+                            <button onClick={() => handleRemoveCode(paragraph.id)}>x</button>
+                        </>
+                    }
+
                 </div>
             ))}
             {!title &&
@@ -75,14 +108,13 @@ const CreateSection = () => {
             }
             <form onSubmit={handleAddParagraph}>
                 <textarea name="paragraph"></textarea>
+                <textarea name='code'></textarea>
                 <button>Add Paragraph</button>
             </form>
             <form onSubmit={handleAddSection}>
                 <button>Submit Section</button>
             </form>
-            <CreatePost
-                sections={sections}
-            />
+
 
         </div>
     )

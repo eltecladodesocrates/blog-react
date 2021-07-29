@@ -1,5 +1,16 @@
-import React from 'react'
+import React, {useReducer} from 'react'
+import { sectionReducer } from '../reducers/postReducer'
 
-const PostsContext = React.createContext()
+export const PostsContext = React.createContext()
 
-export default PostsContext
+const BlogContextApp = ({children}) => {
+    const [state, dispatch] = useReducer(sectionReducer, [])
+
+    return (
+        <PostsContext.Provider value={{state, dispatch}}>
+            {children}
+        </PostsContext.Provider>
+    )
+}
+
+export default BlogContextApp
