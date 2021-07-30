@@ -3,6 +3,7 @@ import { addPost } from '../actions/postActions'
 import {PostsContext} from '../context/posts-context'
 import CreateSection from './CreateSection'
 import {SectionContext} from '../context/section-context'
+import {saveToDb} from '../db/firebase'
 
 const CreatePost = () => {
 
@@ -25,6 +26,7 @@ const CreatePost = () => {
 
     useEffect(() => {
         localStorage.setItem('posts', JSON.stringify(state))
+        saveToDb(state)
         console.log('state from create post')
     }, [state])
 

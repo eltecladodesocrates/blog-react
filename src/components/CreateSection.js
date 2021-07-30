@@ -4,9 +4,6 @@ import CreatePost from './CreatePost'
 
 import {SectionContext} from '../context/section-context'
 
-// Set up the router before you add any extra component, if not after that is going to be tough
-// Add a new component called Header, in which you will define main title and img
-// Take advantage of the useContext hook, if not this is going to be a fucked up mess
 // Start creating the DB for the project (check about auth and google analitics)
 // Use firebase as the backend, you are not ready for building an API from scratch, we need this blog now
 // You are doing a great job 
@@ -39,8 +36,6 @@ const CreateSection = () => {
         e.target.code.value = ''
     }
 
-    // simplify this functionality
-    // it is basically repeating itself
     const handleRemoveParagraph = id => {
         const updatedBody = body.filter(paragraph => {
             if (paragraph.id === id) {

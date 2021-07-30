@@ -1,15 +1,12 @@
 import React from 'react'
-import {BrowserRouter, Switch, Route, NavLink} from 'react-router-dom'
+import {BrowserRouter, Switch, Route} from 'react-router-dom'
 import CreatePost from '../components/CreatePost'
 
 import Header from '../components/Header'
 import Post from '../components/Post'
 import BlogDashBoard from '../components/BlogDashBoard'
 import NotFoundPage from '../components/NotFoundPage'
-
-// Edit Page
-// Style the site
-// Great job
+import Footer from '../components/Footer'
 
 const EditPost = (props) => {
 
@@ -34,6 +31,7 @@ const AppRouter = () => {
           <Route path='/post/:id' component={Post} />
           <Route component={NotFoundPage} />
         </Switch>
+        <Footer />
       </>
     </BrowserRouter>
     )

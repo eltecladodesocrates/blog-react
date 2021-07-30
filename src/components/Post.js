@@ -8,7 +8,6 @@ const Post = (props) => {
     const {state} = useContext(PostsContext)
 
     return (
-        
         <div>
             {state.map(post => {
               if (props.match.params.id == post.id) {
