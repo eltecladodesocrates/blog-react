@@ -1,7 +1,4 @@
-import React, {useReducer, useState} from 'react'
-import CreatePost from '../components/CreatePost'
-import CreateSection from '../components/CreateSection'
-
+import React, {useState} from 'react'
 
 export const SectionContext = React.createContext()
 

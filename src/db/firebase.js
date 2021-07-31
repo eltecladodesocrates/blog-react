@@ -16,8 +16,25 @@ firebase.initializeApp(firebaseConfig)
 const database = firebase.database()
 
 export const saveToDb = (data) => {
-    database.ref().set(data).
+    database.ref('posts').set(data).
     then(() => console.log('data saved!!!')).
     catch((e) => console.log('Error', e))
 }
+
+//fetching data once
+// database.ref()
+//     .once('value')
+//     .then((snapshot) => {
+//         const val = snapshot.val()
+//         console.log(val)
+//     })
+//     .catch((e) => {
+//         console.log('Error fetching data', e);
+//     })
+
+export const renderData = () => {
+    database.ref('posts').on('value', snapshot => {
+        return snapshot.val()
+    })
+} 
 
