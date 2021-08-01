@@ -1,4 +1,5 @@
 import firebase from 'firebase'
+import {renderPosts} from '../actions/postActions'
 
 const firebaseConfig = {
     apiKey: "AIzaSyB8fYab6Db8CG4H7dKBsI-Z66bM9GAyV5M",
@@ -34,7 +35,8 @@ export const saveToDb = (data) => {
 
 export const renderData = () => {
     database.ref('posts').on('value', snapshot => {
-        return snapshot.val()
+        renderPosts(snapshot.val())
+        console.log('data rendered')
     })
 } 
 

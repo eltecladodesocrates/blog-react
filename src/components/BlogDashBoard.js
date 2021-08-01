@@ -15,6 +15,7 @@ const BlogDashBoard = () => {
     // if we have useEffect it is kind of redundant
   useEffect(() => {
     const postsData = JSON.parse(localStorage.getItem('posts'))
+
     if (postsData) {
       dispatch(renderPosts(postsData))
     }

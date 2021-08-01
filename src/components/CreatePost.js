@@ -27,7 +27,7 @@ const CreatePost = () => {
     useEffect(() => {
         localStorage.setItem('posts', JSON.stringify(state))
         saveToDb(state)
-        console.log('state from create post')
+        console.log('state is changing (create post page)', [state])
     }, [state])
 
 

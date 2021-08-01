@@ -6,7 +6,7 @@ export const userReducer = (state, action) => {
                 {
                     user: action.userName,
                     password: action.userPassword,
-                    createdAt: action.createdAt,
+                    createdAt: Date.now(),
                     loged: true
                 }
             ]
