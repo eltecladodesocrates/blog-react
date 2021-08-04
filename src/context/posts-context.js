@@ -1,12 +1,29 @@
-import React, {useReducer} from 'react'
+import React, {useReducer, useEffect} from 'react'
 import { sectionReducer } from '../reducers/postReducer'
 import { userReducer } from '../reducers/userReducer'
+import { renderPosts } from '../actions/postActions'
+import { saveToDb } from '../db/firebase'
 
 export const PostsContext = React.createContext()
 
 const BlogContextApp = ({children}) => {
     const [state, dispatch] = useReducer(sectionReducer, [])
     const [user, dispatchUser] = useReducer(userReducer, [])
+    console.log('from context', state);
+
+    useEffect(() => {
+        const postsData = JSON.parse(localStorage.getItem('posts'))
+
+        if (postsData) {
+        dispatch(renderPosts(postsData))
+        }
+    }, [])
+
+    useEffect(() => {
+        localStorage.setItem('posts', JSON.stringify(state))
+        saveToDb(state)
+        console.log('state is changing (context)', [state])
+    }, [state])
 
     return (
         <PostsContext.Provider value={{state, dispatch, user, dispatchUser}}>

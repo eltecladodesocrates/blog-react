@@ -1,12 +1,8 @@
 import React, { useContext, useState } from 'react'
 import {CopyBlock, dracula} from 'react-code-blocks'
-import CreatePost from './CreatePost'
+
 
 import {SectionContext} from '../context/section-context'
-
-// Start creating the DB for the project (check about auth and google analitics)
-// Use firebase as the backend, you are not ready for building an API from scratch, we need this blog now
-// You are doing a great job 
 
 const CreateSection = () => {
 

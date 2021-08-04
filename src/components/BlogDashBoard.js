@@ -13,13 +13,13 @@ const BlogDashBoard = () => {
     // Fix useeffect to render data from DB
     // I thin async/await would work but
     // if we have useEffect it is kind of redundant
-  useEffect(() => {
-    const postsData = JSON.parse(localStorage.getItem('posts'))
+  // useEffect(() => {
+  //   const postsData = JSON.parse(localStorage.getItem('posts'))
 
-    if (postsData) {
-      dispatch(renderPosts(postsData))
-    }
-  }, [])
+  //   if (postsData) {
+  //     dispatch(renderPosts(postsData))
+  //   }
+  // }, [])
 
   return (
     <Posts />
