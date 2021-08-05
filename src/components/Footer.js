@@ -1,8 +1,10 @@
 const Footer = () => {
     return (
-        <div>
-            <p>El teclado de socrates copyright &copy; 2021</p>
-        </div>
+        <footer className='footer'>
+            <div className='container'>
+                <p>El teclado de socrates copyright &copy; {new Date().getFullYear()}</p>
+            </div>
+        </footer>
     )
 }
 

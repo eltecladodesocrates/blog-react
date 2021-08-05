@@ -13,40 +13,32 @@ const CreatePost = ({history}) => {
     const {sections} = useContext(SectionContext)
 
 
-    const handleAddPost = e => {
-        e.preventDefault()
+    const handleAddPost = () => {
         dispatch(addPost(img, mainTitle, sections))
         setImg('')
         setMailTitle('')
-        // setTriggerEffect( current => !current)
-        // localStorage.setItem('posts', JSON.stringify(state))
-        // saveToDb(state)
-        // console.log('state from add post form', state)
-        // history.push('/')
+        saveToDb([
+            ...state, 
+            {
+                id: Date.now(),
+                img,
+                title: mainTitle,
+                sections
+            }
+        ])
     }
 
-    // useEffect(() => {
-    //     localStorage.setItem('posts', JSON.stringify(state))
-    //     saveToDb(state)
-    //     console.log('state is changing (create post page)', [state])
-    // }, [triggerEffect])
-
-
     return (
-        <div>
+        <div className='main'>
 
-            <form onSubmit={handleAddPost}>
                 <img className='postImage' src={img} alt={mainTitle}/>
                 {img && <button onClick={() => setImg('')}>x</button>}
                 <h2>{mainTitle}</h2>
                 {mainTitle && <button onClick={() => setMailTitle('')}>x</button>}
                 <input type="text" name='img' value={img} placeholder='Image' onChange={e => setImg(e.target.value)} />
                 <input type="text" name='mainTitle' value={mainTitle} placeholder='Main Title' onChange={e => setMailTitle(e.target.value)} />
-                {/* <CreateSection /> */}
-                <button>Add Post</button>
-            </form>
-
-
+                <CreateSection />
+                <button onClick={handleAddPost}>Add Post</button>
             
         </div>
 

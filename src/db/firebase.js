@@ -1,5 +1,7 @@
+import React, {useContext} from 'react'
 import firebase from 'firebase'
 import {renderPosts} from '../actions/postActions'
+import {PostsContext} from '../context/posts-context'
 
 const firebaseConfig = {
     apiKey: "AIzaSyB8fYab6Db8CG4H7dKBsI-Z66bM9GAyV5M",
@@ -33,10 +35,14 @@ export const saveToDb = (data) => {
 //         console.log('Error fetching data', e);
 //     })
 
-export const renderData = () => {
+export const renderData = (dispatch) => {
+
     database.ref('posts').on('value', snapshot => {
-        renderPosts(snapshot.val())
-        console.log('data rendered')
+        if (snapshot.val()) {
+            dispatch(renderPosts(snapshot.val()))
+        }
+
+        console.log('render data', snapshot.val())
     })
 } 
 

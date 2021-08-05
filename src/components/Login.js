@@ -11,7 +11,7 @@ const Login = ({history}) => {
     }
 
     return (
-        <div>
+        <div className='main'>
             <h1>Log In</h1>
             <form onSubmit={handleLogin}>
                 <input type="text" name='userName' placeholder='Email'/>

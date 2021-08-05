@@ -22,7 +22,10 @@ const BlogDashBoard = () => {
   // }, [])
 
   return (
-    <Posts />
+    <div className='main'>
+      <Posts />
+    </div>
+
   )
 }
 
