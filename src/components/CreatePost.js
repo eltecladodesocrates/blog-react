@@ -4,6 +4,7 @@ import {PostsContext} from '../context/posts-context'
 import CreateSection from './CreateSection'
 import {SectionContext} from '../context/section-context'
 import {saveToDb} from '../db/firebase'
+import moment from 'moment'
 
 const CreatePost = ({history}) => {
 
@@ -21,6 +22,7 @@ const CreatePost = ({history}) => {
             ...state, 
             {
                 id: Date.now(),
+                createdAt: moment().format('MMMM D YYYY'),
                 img,
                 title: mainTitle,
                 sections

@@ -7,11 +7,22 @@ const Posts = () => {
     const {state} = useContext(PostsContext)
 
     return (
-        <div className='container'>
+        <div className='container posts-container-grid'>
             {state && state.map(post => (
-                <Link key={post.id} to={`post/${post.id}`}>
-                    <h2>{post.title}</h2>
-                </Link>
+                <div key={post.id} className='post-sumary'>
+                    <Link to={`post/${post.id}`}>
+                        <div className='post-sumary-img' style={
+                            {
+                            backgroundImage: `url(${post.img})`,
+                            backgroundPosition: 'center',
+                            backgroundSize: 'cover',
+                            backgroundRepeat: 'no-repeat'
+                            }}>
+                        </div>
+                        <h2 className='post-sumary-title'>{post.title}</h2>
+                    </Link>
+                    <p>{post.createdAt}</p>
+                </div>
             ))}
         </div>
     )

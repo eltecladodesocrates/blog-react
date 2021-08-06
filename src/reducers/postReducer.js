@@ -1,3 +1,5 @@
+import moment from 'moment'
+
 export const sectionReducer = (state, action) => {
     switch (action.type) {
         case 'RENDER_POSTS':
@@ -7,6 +9,7 @@ export const sectionReducer = (state, action) => {
                 ...state,
                 {
                     id: Date.now(),
+                    createdAt: moment().format('MMMM D YYYY'),
                     img: action.img,
                     title: action.mainTitle,
                     sections: action.sections
