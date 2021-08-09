@@ -3,10 +3,11 @@ export const renderPosts = (posts) => ({
     posts
 })
 
-export const addPost = (img, mainTitle, sections) => ({
+export const addPost = (img, mainTitle, topic, sections) => ({
     type: 'ADD_POST',
     img,
     mainTitle,
+    topic,
     sections
 })
 

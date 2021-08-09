@@ -11,11 +11,12 @@ const CreatePost = ({history}) => {
     const {state, dispatch} = useContext(PostsContext)
     const [img, setImg] = useState('')
     const [mainTitle, setMailTitle] = useState('')
+    const [topic, setTopic] = useState('html')
     const {sections} = useContext(SectionContext)
 
 
     const handleAddPost = () => {
-        dispatch(addPost(img, mainTitle, sections))
+        dispatch(addPost(img, mainTitle, topic, sections))
         setImg('')
         setMailTitle('')
         saveToDb([
@@ -25,9 +26,11 @@ const CreatePost = ({history}) => {
                 createdAt: moment().format('MMMM D YYYY'),
                 img,
                 title: mainTitle,
+                topic,
                 sections
             }
         ])
+        history.push('/')
     }
 
     return (
@@ -38,8 +41,14 @@ const CreatePost = ({history}) => {
                 <h2>{mainTitle}</h2>
                 {mainTitle && <button onClick={() => setMailTitle('')}>x</button>}
                 <input type="text" name='img' value={img} placeholder='Image' onChange={e => setImg(e.target.value)} />
+                <select onChange={e => setTopic(e.target.value)}>
+                    <option value='html'>HTML</option>
+                    <option value='css'>CSS</option>
+                    <option value='javascript'>JavaScript</option>
+                    <option value='react'>React</option>
+                </select>
                 <input type="text" name='mainTitle' value={mainTitle} placeholder='Main Title' onChange={e => setMailTitle(e.target.value)} />
-                <CreateSection />
+                {/* <CreateSection /> */}
                 <button onClick={handleAddPost}>Add Post</button>
             
         </div>

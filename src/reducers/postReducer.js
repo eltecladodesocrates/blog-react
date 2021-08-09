@@ -12,6 +12,7 @@ export const sectionReducer = (state, action) => {
                     createdAt: moment().format('MMMM D YYYY'),
                     img: action.img,
                     title: action.mainTitle,
+                    topic: action.topic,
                     sections: action.sections
                 }
             ]

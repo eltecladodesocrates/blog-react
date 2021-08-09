@@ -14,7 +14,7 @@ const Post = (props) => {
                 return (
                   <div key={post.id}>
                     <div className='post-header-container'>
-                      {/* <img className='heroImg' src={post.img} alt="" /> */}
+
                       <div className='post-img' style={
                         {
                           backgroundImage: `url(${post.img})`,
