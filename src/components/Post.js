@@ -25,7 +25,7 @@ const Post = (props) => {
                           <h2 className='post-title'>{post.title}</h2>
                       </div>
                     </div>
-                    <div className='main container'>
+                    <div className='container post-container'>
                       {post.sections.map(section => (
                         <div className='post-section' key={section.id}>
                           <h3 className='post-section-title'>{section.title}</h3>
