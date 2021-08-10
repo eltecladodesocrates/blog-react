@@ -1,22 +1,16 @@
 import React, { useContext, useState } from 'react'
-import {CopyBlock, dracula} from 'react-code-blocks'
-
 
 import {SectionContext} from '../context/section-context'
+import PostElements from './PostElements'
 
 const CreateSection = () => {
 
     const [title, setTitle] = useState('')
+    const [text, setText] = useState('')
+    const [code, setCode] = useState('')
     const [body, setBody] = useState([])
 
     const {sections, setSections} = useContext(SectionContext)
-
-
-    const handleAddTitle = e => {
-        e.preventDefault()
-        setTitle(e.target.title.value)
-        e.target.title.value = ''
-    }
 
     const handleAddParagraph = e => {
         e.preventDefault()
@@ -24,32 +18,12 @@ const CreateSection = () => {
             ...body,
             {
                 id: Date.now(),
-                text: e.target.paragraph.value,
-                code: e.target.code.value
+                text,
+                code
             }
         ])
-        e.target.paragraph.value = ''
-        e.target.code.value = ''
-    }
-
-    const handleRemoveParagraph = id => {
-        const updatedBody = body.filter(paragraph => {
-            if (paragraph.id === id) {
-                paragraph.text = ''
-            }
-            return paragraph
-        })
-        setBody(updatedBody)
-    }
-
-    const handleRemoveCode = id => {
-        const updatedBody = body.filter(paragraph => {
-            if (paragraph.id === id) {
-                paragraph.code = ''
-            }
-            return paragraph
-        })
-        setBody(updatedBody)
+        setText('')
+        setCode('')
     }
 
     const handleAddSection = (e) => {
@@ -69,44 +43,11 @@ const CreateSection = () => {
 
     return (
         <div>
-            <div>
-                <h2>{title}</h2>
-                {title && <button onClick={() => setTitle('')}>x</button>}
-            </div>
-            {body.map((paragraph) => (
-                <div key={paragraph.id}>
-                    <p>{paragraph.text}</p>
-                    {paragraph.text && <button onClick={() => handleRemoveParagraph(paragraph.id)}>x</button>}
-                    {
-                        paragraph.code && 
-                        <>
-                            <CopyBlock 
-                                text={paragraph.code}
-                                language={'javascript'}
-                                theme={dracula}
-                            />
-                            <button onClick={() => handleRemoveCode(paragraph.id)}>x</button>
-                        </>
-                    }
-
-                </div>
-            ))}
-            {!title &&
-                <form onSubmit={handleAddTitle}>
-                    <input type="text" placeholder='Title' name='title' />
-                    <button>Add Title</button>
-                </form>
-            }
-            <form onSubmit={handleAddParagraph}>
-                <textarea name="paragraph"></textarea>
-                <textarea name='code'></textarea>
-                <button>Add Paragraph</button>
-            </form>
-            <form onSubmit={handleAddSection}>
-                <button>Submit Section</button>
-            </form>
-
-
+            <PostElements element={title} setElement={setTitle} placeHolder='section-title-input'/>
+            <PostElements element={text} setElement={setText} placeHolder='section-paragraph-input'/>
+            <PostElements element={code} setElement={setCode} placeHolder='section-code-input'/>
+            <button className='add-paragraph-btn btn' onClick={handleAddParagraph}>Add Paragraph</button>
+            <button className='add-section-btn btn' onClick={handleAddSection}>Secion Section</button>
         </div>
     )
 }

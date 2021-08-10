@@ -1,10 +1,14 @@
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useState, useContext } from 'react'
+import moment from 'moment'
+
 import { addPost } from '../actions/postActions'
 import {PostsContext} from '../context/posts-context'
 import CreateSection from './CreateSection'
 import {SectionContext} from '../context/section-context'
 import {saveToDb} from '../db/firebase'
-import moment from 'moment'
+import PostElements from './PostElements'
+
+
 
 const CreatePost = ({history}) => {
 
@@ -34,41 +38,21 @@ const CreatePost = ({history}) => {
     }
 
     return (
-        <div className='main'>
-
-                <img className='postImage' src={img} alt={mainTitle}/>
-                {img && <button onClick={() => setImg('')}>x</button>}
-                <h2>{mainTitle}</h2>
-                {mainTitle && <button onClick={() => setMailTitle('')}>x</button>}
-                <input type="text" name='img' value={img} placeholder='Image' onChange={e => setImg(e.target.value)} />
+        <div className='main post-form'>
+                <h2 className='post-section-title'>Create a Post</h2>
+                <PostElements element={img} setElement={setImg} placeHolder='img-input'/>
+                <PostElements element={mainTitle} setElement={setMailTitle} placeHolder='title-input'/>
                 <select onChange={e => setTopic(e.target.value)}>
                     <option value='html'>HTML</option>
                     <option value='css'>CSS</option>
                     <option value='javascript'>JavaScript</option>
                     <option value='react'>React</option>
                 </select>
-                <input type="text" name='mainTitle' value={mainTitle} placeholder='Main Title' onChange={e => setMailTitle(e.target.value)} />
-                {/* <CreateSection /> */}
+                <CreateSection />
                 <button onClick={handleAddPost}>Add Post</button>
-            
         </div>
 
     )
 }
-
-
-                // <img className='postImage' src={img} alt={mainTitle}/>
-                // {img && <button onClick={() => setImg('')}>x</button>}
-                // <h2>{mainTitle}</h2>
-                // {mainTitle && <button onClick={() => setMailTitle('')}>x</button>}
-                // {!mainTitle && !img &&
-                //     <form onSubmit={handleAddHeaderAndImg}>
-                //         <input type="text" name='img' placeholder='Image' />
-                //         <input type="text" name='mainTitle' placeholder='Main Title' />
-                //         <button>Submit</button>
-                //     </form>
-                // }
-                // {/* <CreateSection /> */}
-                // <button onClick={handleAddPost}>Add Post</button>
 
 export default CreatePost
