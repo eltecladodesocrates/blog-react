@@ -1,21 +1,27 @@
-import React from 'react'
+import React, {useState, useContext} from 'react'
+import { AuthContext } from '../context/auth-context'
+import {startLoginUser} from '../actions/userActions'
 
 const Login = ({history}) => {
 
+    const {user, userDispatch} = useContext(AuthContext)
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+
     const handleLogin = (e) => {
         e.preventDefault()
-        console.log('SUccesfully Logged in')
-        e.target.userName.value = ''
-        e.target.userPassword.value = ''
-        history.push('/')
+        startLoginUser(userDispatch, email, password)
+        // setEmail('')
+        // setPassword('')
     }
 
     return (
         <div className='main'>
+            {console.log('From Loggin', user)}
             <h1>Log In</h1>
             <form onSubmit={handleLogin}>
-                <input type="text" name='userName' placeholder='Email'/>
-                <input type="password" name='userPassword' placeholder='Password' />
+                <input type="text" placeholder='Email' value={email} onChange={ e => setEmail(e.target.value)}/>
+                <input type="password" placeholder='Password' value={password} onChange={ e => setPassword(e.target.value)}/>
                 <button>Login</button>
             </form>
         </div>

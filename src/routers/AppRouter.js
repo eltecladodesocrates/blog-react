@@ -29,7 +29,7 @@ const AppRouter = () => {
         <Header />
         <Switch>
           <Route path='/' component={BlogDashBoard} exact={true} />
-          <Route path='/createletat' component={CreatePost} />
+          <Route path='/create' component={CreatePost} />
           <Route path='/edit/:id' component={EditPost} />
           <Route path='/post/:id' component={Post} />
           <Route path='/login' component={Login} />

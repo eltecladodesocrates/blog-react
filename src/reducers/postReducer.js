@@ -7,14 +7,7 @@ export const sectionReducer = (state, action) => {
         case 'ADD_POST':
             return [
                 ...state,
-                {
-                    id: Date.now(),
-                    createdAt: moment().format('MMMM D YYYY'),
-                    img: action.img,
-                    title: action.mainTitle,
-                    topic: action.topic,
-                    sections: action.sections
-                }
+                action.post
             ]
         default:
             return state

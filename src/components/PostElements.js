@@ -15,15 +15,15 @@ const PostElements = ({element, setElement, placeHolder}) => {
 
     return (
         <div>
-            {placeHolder === 'img' ? <img src={element} alt={element} /> : <div>{element}</div>}
+            {placeHolder === 'img-input' ? <img src={element} alt={element} /> : <div>{element}</div>}
             {showComponent || element === '' ?
-                <input 
+                <textarea
                     className={placeHolder}
                     value={element} 
                     onChange={ e => setElement(e.target.value)} 
                     onKeyPress={(e) => e.key === 'Enter' && setShowComponent(false)} 
                     placeholder={placeHolder}
-                /> : 
+                ></textarea>  : 
                 <div>
                     <button onClick={deleteTitle}>D</button>
                     <button onClick={editTitle}>E</button>

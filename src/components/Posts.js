@@ -8,7 +8,11 @@ const Posts = () => {
 
     return (
         <div className='container posts-container-grid'>
+            {/* {state && state.map(post => {
+                console.log('post id', post.id)
+            })} */}
             {state && state.map(post => (
+
                 <div key={post.id} className='post-sumary'>
                     <Link to={`post/${post.id}`}>
                         <div className='post-sumary-img' style={
@@ -19,7 +23,7 @@ const Posts = () => {
                             backgroundRepeat: 'no-repeat'
                             }}>
                         </div>
-                        <h2 className='post-sumary-title'>{post.title}</h2>
+                        <h2 className='post-sumary-title'>{post.mainTitle}</h2>
                     </Link>
                     <p>{post.createdAt}</p>
                 </div>
@@ -29,3 +33,6 @@ const Posts = () => {
 }
 
 export default Posts
+
+// {console.log(post)}
+// {state && state.map(post => (            ))}

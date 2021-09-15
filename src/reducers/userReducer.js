@@ -1,19 +1,9 @@
 export const userReducer = (state, action) => {
     switch (action.type) {
-        case 'ADD_USER': 
-            return [
-                ...state,
-                {
-                    user: action.userName,
-                    password: action.userPassword,
-                    createdAt: Date.now(),
-                    loged: true
-                }
-            ]
         case 'LOGIN_USER':
-            return state
+            return action.user
         case 'LOGOUT_USER':
-            return state
+            return {}
         default:
             return state
     }

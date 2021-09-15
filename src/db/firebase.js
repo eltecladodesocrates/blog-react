@@ -16,13 +16,9 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig)  
 
 
-const database = firebase.database()
+export const database = firebase.database()
 
-export const saveToDb = (data) => {
-    database.ref('posts').set(data).
-    then(() => console.log('data saved!!!')).
-    catch((e) => console.log('Error', e))
-}
+export const auth = firebase.auth()
 
 //fetching data once
 // database.ref()
@@ -35,14 +31,14 @@ export const saveToDb = (data) => {
 //         console.log('Error fetching data', e);
 //     })
 
-export const renderData = (dispatch) => {
+// export const renderData = (dispatch) => {
 
-    database.ref('posts').on('value', snapshot => {
-        if (snapshot.val()) {
-            dispatch(renderPosts(snapshot.val()))
-        }
+//     database.ref('posts').on('value', snapshot => {
+//         if (snapshot.val()) {
+//             dispatch(renderPosts(snapshot.val()))
+//         }
 
-        console.log('render data', snapshot.val())
-    })
-} 
+//         console.log('render data', snapshot.val())
+//     })
+// } 
 

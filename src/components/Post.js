@@ -22,7 +22,7 @@ const Post = (props) => {
                           backgroundSize: 'cover',
                           backgroundRepeat: 'no-repeat'
                         }}>
-                          <h2 className='post-title'>{post.title}</h2>
+                          <h2 className='post-title'>{post.mainTitle}</h2>
                       </div>
                     </div>
                     <div className='container post-container'>

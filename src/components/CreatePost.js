@@ -1,12 +1,9 @@
 import React, { useState, useContext } from 'react'
-import moment from 'moment'
-
-import { addPost } from '../actions/postActions'
 import {PostsContext} from '../context/posts-context'
 import CreateSection from './CreateSection'
 import {SectionContext} from '../context/section-context'
-import {saveToDb} from '../db/firebase'
 import PostElements from './PostElements'
+import { startAddPost } from '../actions/postActions'
 
 
 
@@ -20,20 +17,21 @@ const CreatePost = ({history}) => {
 
 
     const handleAddPost = () => {
-        dispatch(addPost(img, mainTitle, topic, sections))
+        // dispatch(addPost(img, mainTitle, topic, sections))
+        startAddPost(dispatch, {img, mainTitle, topic, sections})
         setImg('')
         setMailTitle('')
-        saveToDb([
-            ...state, 
-            {
-                id: Date.now(),
-                createdAt: moment().format('MMMM D YYYY'),
-                img,
-                title: mainTitle,
-                topic,
-                sections
-            }
-        ])
+        // saveToDb([
+        //     ...state, 
+        //     {
+        //         id: Date.now(),
+        //         createdAt: moment().format('MMMM D YYYY'),
+        //         img,
+        //         title: mainTitle,
+        //         topic,
+        //         sections
+        //     }
+        // ])
         history.push('/')
     }
 

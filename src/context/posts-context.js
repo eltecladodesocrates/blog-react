@@ -1,8 +1,7 @@
 import React, {useReducer, useEffect} from 'react'
 import { sectionReducer } from '../reducers/postReducer'
 import { userReducer } from '../reducers/userReducer'
-import { renderPosts } from '../actions/postActions'
-import { saveToDb, renderData } from '../db/firebase'
+import { startRenderPosts } from '../actions/postActions'
 
 export const PostsContext = React.createContext()
 
@@ -12,10 +11,7 @@ const BlogContextApp = ({children}) => {
     console.log('from context', state);
 
     useEffect( () => {
-        // const postsData = JSON.parse(localStorage.getItem('posts'))
-        renderData(dispatch)
-        // console.log(postsData);
-
+        startRenderPosts(dispatch)
     }, [])
     
     // useEffect(() => {

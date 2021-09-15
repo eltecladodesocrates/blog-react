@@ -1,17 +1,16 @@
 import React, {useContext} from 'react'
-import {PostsContext} from '../context/posts-context'
-import { addUser } from '../actions/userActions'
+import { AuthContext } from '../context/auth-context'
 
 const Signup = ({history}) => {
 
-    const {user, dispatchUser} = useContext(PostsContext)
+    const {user, userDispatch} = useContext(AuthContext)
 
     const handleSignUp = e => {
         e.preventDefault()
-        dispatchUser(addUser(
-            e.target.userName.value,
-            e.target.userPassword.value,
-        ))
+        // dispatchUser(addUser(
+        //     e.target.userName.value,
+        //     e.target.userPassword.value,
+        // ))
         history.push('/')
     }
 
